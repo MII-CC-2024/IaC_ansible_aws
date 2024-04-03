@@ -1,0 +1,24 @@
+# provision_ec2.yml
+
+- hosts: localhost
+  gather_facts: False
+
+  tasks:
+
+    - name: Provision an EC2 instance with a public IP address
+      amazon.aws.ec2_instance:
+        name: "{{nombre}}"
+        state: "{{accion}}"
+        key_name: "vockey"
+        instance_type: t2.nano
+        security_group: default
+        network:
+          assign_public_ip: true
+        image_id: ami-0c101f26f147fa7fd
+        tags:
+          Environment: "{{entorno}}"
+      register: result
+
+    - name: Show Results
+      debug:
+        var: result
