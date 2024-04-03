@@ -45,11 +45,19 @@ Inventario dinámico:
 # hosts_aws_ec2.yaml
 
 plugin: amazon.aws.aws_ec2
+
 profile: default
+
 regions:
   - us-east-1
+
 filters:
   instance-state-name : running
+
+exclude_filters:
+- tag:Name:
+    - '*cloud9*'
+
 compose:
   ansible_host: public_ip_address
 
