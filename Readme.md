@@ -29,7 +29,7 @@ En esta guía, vamos a suponer que ye tenemos definido el profile default.
 # ansible.cfg
 
 [defaults]
-enable_plugins=aws_ec2
+enable_plugins = amazon.aws.aws_ec2
 
 inventory = ./hosts_aws_ec2.yaml
 remote_user = ec2-user
@@ -66,10 +66,16 @@ nombre (de la máquina), accion (present / absent) y entorno (para ponerle un ta
 Crear el playbook (provision_ec2.yaml):
 
 ```yaml
+
 # provision_ec2.yml
 
 - hosts: localhost
   gather_facts: False
+  
+  vars:
+    nombre: 'Server'
+    accion: 'present'
+    entorno: 'web'  
 
   tasks:
 
@@ -109,4 +115,13 @@ Lista el inventario con:
 
 ```
 $ ansible-inventory --list
+```
+
+## Eliminar recursos
+
+```
+$ ansible-playbook provision_ec2.yaml --extra-vars "nombre=webserver accion=absent entorno=web"
+
+$ ansible-playbook provision_ec2.yaml --extra-vars "nombre=database accion=absent entorno=db"
+
 ```

@@ -1,7 +1,13 @@
 # provision_ec2.yml
 
-- hosts: localhost
+- name: Provision Infrastructure on AWS
+  hosts: localhost
   gather_facts: False
+  
+  vars:
+    nombre: 'Server'
+    accion: 'present'
+    entorno: 'web'
 
   tasks:
 
